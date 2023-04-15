@@ -45,7 +45,6 @@ func main() {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		defer conn.Close()
 
 		scanner := bufio.NewScanner(conn)
 
@@ -59,6 +58,7 @@ func main() {
 
 		fmt.Println("Code got here.")
 		io.WriteString(conn, "I see you connected.")
+		conn.Close()
 
 	}
 }
