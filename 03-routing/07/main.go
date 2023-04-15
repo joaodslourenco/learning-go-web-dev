@@ -20,6 +20,7 @@ import (
 )
 
 func serve(conn net.Conn) {
+	defer conn.Close()
 	scanner := bufio.NewScanner(conn)
 
 	for scanner.Scan() {
@@ -43,12 +44,10 @@ func main() {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		defer conn.Close()
 
 		go serve(conn)
 
 		fmt.Println("Code got here.")
 		io.WriteString(conn, "I see you connected.")
-
 	}
 }
